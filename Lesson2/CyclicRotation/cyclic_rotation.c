@@ -54,47 +54,107 @@ struct Results {
 	int N; // Length of the array
 };
 
+//25%
+/* struct Results solution(int A[], int N, int K) { */
+/* 	struct Results result; */
+/* 	// write your code in C99 (gcc 6.2.0) */
+/* 	result.A = A; */
+/* 	result.N = N; */
+/*  */
+/* 	int i; */
+/*  */
+/* 	#<{(| if (K == N + 1 || K == 0 || K % N == 0) |)}># */
+/* 	if (K == N + 1 || K == 0) */
+/* 		return result; */
+/* 	 */
+/* 	int count = A[0]; */
+/* 	int tmp_result = 0; */
+/* 	for (i = 0; i < N; ++i) { */
+/* 		if (A[i] == count) */
+/* 			count++; */
+/* 		else { */
+/* 			tmp_result = 1; */
+/* 			break; */
+/* 		} */
+/* 	} */
+/* 	if (K == N) */
+/* 		if (tmp_result == 0) */
+/* 			return result; */
+/* 		else  */
+/* 			goto res; */
+/*  */
+/* 	int all = 0; */
+/* 	for (i = 0; i < N; ++i) { */
+/* 		if (A[i] == A[0]) {	 */
+/* 			all++; */
+/* 			continue; */
+/* 		} */
+/* 		else */
+/* 			break; */
+/* 	} */
+/* 	if (all == N) */
+/* 		return result; */
+/*  */
+/* 	if (K > N) */
+/* 		K = K % N; */
+/*  */
+/* res: { */
+/* 	     int B[N]; */
+/* 	     int j; */
+/* 	     for (i = 0, j = 0; i < N; ++i) { */
+/* 		     if (i + K > N) { */
+/* 			     B[i] = A[j]; */
+/* 			     j++; */
+/* 		     } */
+/* 		     else  */
+/* 			     B[i] = A[i + K - 1]; */
+/* 	     } */
+/* 	     for (i = 0; i < N; ++i)  */
+/* 		     result.A[i] = B[i]; */
+/* 	     result.N = N; */
+/*      } */
+/*  */
+/* 	return result; */
+/* } */
+
+//100%
 struct Results solution(int A[], int N, int K) {
-	struct Results result;
-	// write your code in C99 (gcc 6.2.0)
-	result.A = A;
-	result.N = N;
+        struct Results result;
+        // write your code in C99 (gcc 6.2.0)
+        result.A = A;
+        result.N = N;
 
-	int i;
+        if (K == N)
+                return result;
+                
+        if (N == 1)
+                return result;
 
-	if (K % N == 0 || K == 0)
-		return result;
+        if (K == 0 || N == 0)
+                return result;
 
-	int all = 0;
-	for (i = 0; i < N; ++i) {
-		if (A[i] == A[0]) {	
-			all++;
-			continue;
-		}
-		else
-			break;
-	}
-	if (all == N)
-		return result;
+        if (K > N)
+                K = K % N;
 
-	int B[N];
-	if (K > N)
-		K = K % N;
+        int i;
+        int j;
+        int B[N];
 
-	int j;
-	for (i = 0, j = 0; i < N; ++i) {
-		if (i + K > N) {
-			B[i] = A[j];
-			j++;
-		}
-		else 
-			B[i] = A[i + K - 1];
-	}
-	
-	result.A = B;
-	result.N = N;
+        for (j = 0; j < K; ++j) {
+                B[0] = A[N - 1];
 
-	return result;
+                for (i = 0; i < N - 1; ++i)
+                        B[i + 1] = A[i];
+
+                for (i = 0; i < N; ++i) 
+                        A[i] = B[i];
+        }
+
+        for (i = 0; i < N; ++i) 
+                result.A[i] = B[i];
+        result.N = N;
+
+        return result;
 }
 
 int main()
@@ -102,6 +162,8 @@ int main()
 	int i;
 	int N = 5;
 	int K = 3;
+	/* int A[] = {-1, 1500}; */
+	/* int A[] = {1, 2, 3, 4}; */
 	int A[] = {3, 8, 9, 7, 6};
 	/* int A[] = {3, 8, 9, 7, 6, 24}; */
 
