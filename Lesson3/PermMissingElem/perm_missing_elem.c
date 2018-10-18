@@ -56,7 +56,7 @@ int solution(int A[], int N) {
 	    B[A[i]] = 1;
    
     for (i = 1; i < N + 1; ++i) {
-	    if (B[i] == 0)
+	    if (B[i] != 0)
 		    return i;
     }
     return -1;
