@@ -51,6 +51,32 @@ Write an efficient algorithm for the following assumptions:
 /* 	return -1; */
 /* } */
 
+//66%
+/* int solution(int A[], int N) { */
+/* 	// write your code in C99 (gcc 6.2.0) */
+/* 	int i; */
+/* 	int j; */
+/*  */
+/* 	for (i = 0; i < N -1; ++i) { */
+/* 		if (A[i] == 0) */
+/* 			continue; */
+/*  */
+/* 		for (j = i + 1; j < N; ++j) { */
+/* 			if (A[i] == A[j]) { */
+/* 				A[i] = 0; */
+/* 				A[j] = 0; */
+/* 				break; */
+/* 			} */
+/* 		} */
+/* 	} */
+/*  */
+/* 	for (i = 0; i < N; ++i) */
+/* 		if (A[i] != 0) */
+/* 			return A[i]; */
+/*  */
+/* 	return -1; */
+/* } */
+
 int solution(int A[], int N) {
 	// write your code in C99 (gcc 6.2.0)
 	int i;
@@ -60,7 +86,7 @@ int solution(int A[], int N) {
 		B[A[i]]++;
 
 	for (i = 0; i < 1000000; ++i) {
-		if (B[i] > 0 && B[i] % 2 != 0)
+		if (B[i] == 1)
 			return i;
 	}
 	return -1;
