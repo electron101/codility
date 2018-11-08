@@ -118,7 +118,27 @@ Write an efficient algorithm for the following assumptions:
 /* 	return min; */
 /* } */
 
+//100%
 int solution(int A[], int N) {
+	int i;
+	int sum_all  = 0;
+	int sum_left = 0;
+	int result;
+	int min      = 1001;
+
+	if (N ==2)
+		return fabs(A[0] - A[1]);
+	
+	for (i = 0; i < N; ++i) 
+		sum_all += A[i];
+
+	for (i = 0; i < N - 1; ++i) {
+		sum_left += A[i];
+		result = fabs(sum_left - (sum_all - sum_left));
+		if (result < min)
+			min = result;
+	}
+	return min;
 }
 
 int main ()
