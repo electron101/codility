@@ -80,9 +80,68 @@ Write an efficient algorithm for the following assumptions:
 /* } */
 
 //83%
+/* int solution(int A[], int N) { */
+/*         int i; */
+/*         int B[100000] = {0}; */
+/*  */
+/*         if (N == 1) { */
+/*                 if (A[0] == 1) */
+/*                         return 1; */
+/*                 else  */
+/*                         return 0; */
+/*         } */
+/*  */
+/*         if (N == 2) { */
+/*                 if ( (fabs(A[0] - A[1]) == 1) && (A[0] == 1 || A[1] == 1) ) */
+/*                         return 1; */
+/*                 else  */
+/*                         return 0; */
+/*         } */
+/*  */
+/*         for (i = 0; i < N; ++i)  */
+/*                 B[A[i]] = 1; */
+/*  */
+/*         for (i = 1; i < N; ++i) { */
+/*                 if (B[i] == 0) */
+/*                         return 0; */
+/*         } */
+/*         return 1; */
+/* } */
+
+//91%
+/* int solution(int A[], int N) { */
+/*         int i; */
+/*         int B[100001] = {0}; */
+/*  */
+/*         if (N == 1) { */
+/*                 if (A[0] == 1) */
+/*                         return 1; */
+/*                 else  */
+/*                         return 0; */
+/*         } */
+/*  */
+/*         if (N == 2) { */
+/*                 if ( (fabs(A[0] - A[1]) == 1) && (A[0] == 1 || A[1] == 1) ) */
+/*                         return 1; */
+/*                 else  */
+/*                         return 0; */
+/*         } */
+/*  */
+/*         for (i = 0; i < N; ++i)  */
+/*                 B[A[i]]++; */
+/*  */
+/*         for (i = 1; i < N + 1; ++i) { */
+/*                 if (B[i] != 1) */
+/*                         return 0; */
+/*         } */
+/*         return 1; */
+/* } */
+
+
 int solution(int A[], int N) {
         int i;
-        int B[100000] = {0};
+        int B[100001] = {0};
+	int max       = A[0];
 
         if (N == 1) {
                 if (A[0] == 1)
@@ -98,28 +157,38 @@ int solution(int A[], int N) {
                         return 0;
         }
 
-        for (i = 0; i < N; ++i) 
-                B[A[i]] = 1;
+        for (i = 0; i < N; ++i) {
+		if (max < A[i])
+			max = A[i];
 
-        for (i = 1; i < N; ++i) {
-                if (B[i] == 0)
-                        return 0;
-        }
-        return 1;
+		if (B[A[i]] == 0) 
+			B[A[i]]++;
+		else 
+			return 0;
+	}
+
+	if (max != N)
+		return 0;
+
+	return 1;
+
+        /* for (i = 0; i < N + 1; ++i) { */
+        /*         if (B[i] != 1) */
+        /*                 return 0; */
+        /* } */
+        /* return 1; */
 }
 
 int main() 
 {
 	int i;
-	int N = 2;
+	int N = 4;
 	/* int A[] = {1}; */
-	int A[] = {4, 3};
-	/* int A[] = {4, 1, 8, 2}; */
+	/* int A[] = {4, 3}; */
+	int A[] = {4, 1, 3, 2};
 
 
 	printf ("%d\n", solution(A, N));
 
 	return 0;
-
-
 }
